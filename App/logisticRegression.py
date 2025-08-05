@@ -48,14 +48,14 @@ class LogisticRegression():
         return [self.weights, self.bias, self.losses]
             
     def show_results(self):
-        training_results = self.training_model()
+        training_results = self.train_model()
 
-        z_value = self.x @ training_results[0] + training_results[1]
+        z_value = self.xTrain @ training_results[0] + training_results[1]
         prediction = self.sigmoid.sigmoid_calc(z_value)
 
-        calc = (prediction >= self.range_prob).astype(int)
+        calc = (prediction >= self.rangeProb).astype(int)
 
-        accuracy = np.mean(calc == self.y)
+        accuracy = np.mean(calc == self.yTrain)
 
         print(f"Final Acurracy: {accuracy:.2f}")
 
