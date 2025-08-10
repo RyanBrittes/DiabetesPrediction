@@ -28,31 +28,28 @@ class LoadData():
     def get_log(self, dataset):
         return self.normalize.calc_log(dataset)
     
-    def get_shuffle_separe_train_validation_test(self, rateTest, rateValidation):
-        xValues = self.get_score_Z(self.__x_true)
-        yValues = self.get_score_Z(self.__y_true)
+    def get_shuffle_separe_train_validation_test(self, rate_test, rate_validation):
+        x_values = self.get_log(self.__x_true)
+        y_values = self.__y_true
 
         np.random.seed(42)
-        indexShuffled = np.random.permutation(len(yValues))
+        indexShuffled = np.random.permutation(len(y_values))
 
-        yShuffled = yValues[indexShuffled]
-        xShuffled = xValues[indexShuffled]
+        y_shuffled = y_values[indexShuffled]
+        x_shuffled = x_values[indexShuffled]
         
-        rateTrain = 1 - rateTest - rateValidation
+        rate_train = 1 - rate_test - rate_validation
 
-        lenDataset = len(yValues)
-        lenTrain = np.floor(lenDataset*rateTrain).astype(int)
-        lenValidation = np.round(lenDataset*rateValidation).astype(int)
+        len_sample = len(y_values)
+        len_train = np.floor(len_sample * rate_train).astype(int)
+        len_validation = np.round(len_sample * rate_validation).astype(int)
 
-        xTrain = xShuffled[0:lenTrain]
-        yTrain = yShuffled[0:lenTrain]
-        xValidation = xShuffled[lenTrain:(lenTrain + lenValidation)]
-        yValidation = yShuffled[lenTrain:(lenTrain + lenValidation)]
-        xTest = xShuffled[(lenTrain + lenValidation):lenDataset]
-        yTest = yShuffled[(lenTrain + lenValidation):lenDataset]
+        x_train = x_shuffled[0:len_train]
+        y_train = y_shuffled[0:len_train]
+        x_validation = x_shuffled[len_train:(len_train + len_validation)]
+        y_validation = y_shuffled[len_train:(len_train + len_validation)]
+        x_test = x_shuffled[(len_train + len_validation):len_sample]
+        y_test = y_shuffled[(len_train + len_validation):len_sample]
         
-        return [xTrain, yTrain, xValidation, yValidation, xTest, yTest, lenDataset]
+        return [x_train, y_train, x_validation, y_validation, x_test, y_test, len_sample]
     
-A = LoadData()
-
-value = A.get_shuffle_separe_train_validation_test(0.1, 0.1)

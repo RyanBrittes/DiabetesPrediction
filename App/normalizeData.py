@@ -2,38 +2,39 @@ import numpy as np
 
 class NormalizeData():
 
-    def calc_mean(self, rawValue):
-        sumValue = 0
-        for i in range(len(rawValue)):
-            sumValue += rawValue[i]
+    def calc_mean(self, raw_value):
+        sum_value = 0
+        for i in range(len(raw_value)):
+            sum_value += raw_value[i]
 
-        return sumValue/len(rawValue)
+        return sum_value/len(raw_value)
     
-    def calc_standard_deviation(self, rawValue):
-        mean = self.calc_mean(rawValue)
-        sumValue = 0
-        for i in range(len(rawValue)):
-            sumValue += (rawValue[i] - mean) ** 2
+    def calc_standard_deviation(self, raw_value):
+        mean_value = self.calc_mean(raw_value)
+        sum_value = 0
+        for i in range(len(raw_value)):
+            sum_value += (raw_value[i] - mean_value) ** 2
         
-        return (sumValue / len(rawValue)) ** 0.5
+        return (sum_value / len(raw_value)) ** 0.5
     
-    def calc_score_Z(self, rawValue):
-        meanValue = self.calc_mean(rawValue)
-        stdValue = self.calc_standard_deviation(rawValue)
-        listValue = []
+    def calc_score_Z(self, raw_value):
+        mean_value = self.calc_mean(raw_value)
+        std_value = self.calc_standard_deviation(raw_value)
+        list_value = []
 
-        for i in range(len(rawValue)):
-            value = (rawValue[i] - meanValue) / stdValue
-            listValue.append(value)
+        for i in range(len(raw_value)):
+            value = (raw_value[i] - mean_value) / std_value
+            list_value.append(value)
         
-        return np.vstack(listValue)
+        return np.vstack(list_value)
     
-    def calc_log(self, rawValue):
-        listValue = []
-        const_not_zero = 1e-8
-        for i in range(len(rawValue)):
-            listValue.append(np.log(rawValue[i] + const_not_zero))
-        return np.vstack(listValue)
+    def calc_log(self, raw_value):
+        list_value = []
+        log_not_zero = 1e-14
+        for i in range(len(raw_value)):
+            list_value.append(np.log(raw_value[i] + log_not_zero))
+        return np.vstack(list_value)
     
-    def calc_log_denormalize(self, rawValue):
-        return np.exp(rawValue)
+    def calc_log_denormalize(self, raw_value):
+        return np.exp(raw_value)
+    
