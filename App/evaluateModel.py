@@ -22,21 +22,17 @@ class EvaluateModel():
     def calc_evaluate_model(self):
         y_value = self.calc_prediction()
 
-        tp_value = np.sum((y_value[0] == 1) & (y_value[1] == 1))
-        tn_value = np.sum((y_value[0] == 0) & (y_value[1] == 0))
-        fp_value = np.sum((y_value[0] == 1) & (y_value[1] == 0))
-        fn_value = np.sum((y_value[0] == 0) & (y_value[1] == 1))
+        tp_value = int(np.sum((y_value[0] == 1) & (y_value[1] == 1)))
+        tn_value = int(np.sum((y_value[0] == 0) & (y_value[1] == 0)))
+        fp_value = int(np.sum((y_value[0] == 1) & (y_value[1] == 0)))
+        fn_value = int(np.sum((y_value[0] == 0) & (y_value[1] == 1)))
         
-        matriz_confusion = [[tp_value, fp_value], [tn_value, fn_value]]
+        matriz_confusion = [[tp_value, fn_value], [fp_value, tn_value]]
 
         accuracy = ((tp_value + tn_value) / (tp_value + tn_value + fp_value + fn_value)) * 100
-        recall = (tp_value / (tp_value + fn_value)) * 100 if (tp_value + fp_value) > 0 else 0
+        recall = (tp_value / (tp_value + fn_value)) * 100 if (tp_value + fn_value) > 0 else 0
         fpr = (fp_value / (fp_value + tn_value)) * 100 if (tp_value + tn_value) > 0 else 0
         precision = (tp_value / (tp_value + fp_value)) * 100 if (tp_value + fp_value) > 0 else 0
         f1 = 2 * (recall * precision) / (precision + recall) if (precision + recall) > 0 else 0
 
         return [matriz_confusion, accuracy, recall, fpr, precision, f1]
-
-A = EvaluateModel()
-
-A.calc_evaluate_model()
