@@ -1,17 +1,13 @@
 import pandas as pd
 import numpy as np
 from normalizeData import NormalizeData
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
 
 class LoadData():
     def __init__(self):
         self.normalize = NormalizeData()
-        self.__data = pd.read_csv(os.getenv("DATAPATH"))
+        self.__data = pd.read_csv('files/diabetes.csv')
         self.__y_true = self.__data[['Outcome']].values
-        self.__x_true = self.__data[['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']].values
+        self.__x_true = self.__data[['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age']].values
 
     def get_dataset(self):
         return self.__data

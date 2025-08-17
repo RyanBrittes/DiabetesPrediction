@@ -20,10 +20,10 @@ class LogisticRegression():
         self.len_sample = self.shuffled_data[6]
         self.weights = np.zeros(self.shuffled_data[0].shape[1])
         self.bias = 0
-        self.lr = 0.007
-        self.epochs = 3000
+        self.lr = 0.01
+        self.epochs = 8000
         self.losses = []
-        self.batch_size = 70
+        self.batch_size = 50
     
     def train_model(self):
         for epoch in range(self.epochs):

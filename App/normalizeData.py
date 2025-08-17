@@ -38,3 +38,9 @@ class NormalizeData():
     def calc_log_denormalize(self, raw_value):
         return np.exp(raw_value)
     
+    def calc_log_denormalize_list(self, raw_value):
+        list_value = []
+        for i in range(len(raw_value)):
+            list_value.append(np.exp(raw_value[i]))
+
+        return list_value

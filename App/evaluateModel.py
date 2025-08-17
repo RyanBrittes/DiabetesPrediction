@@ -7,7 +7,7 @@ class EvaluateModel():
         self.logistic_regression = LogisticRegression()
         self.sigmoid = Sigmoid()
         self.data_train = self.logistic_regression.train_model()
-        self.threshold = 0.4
+        self.threshold = 0.5
 
     def calc_prediction(self):
         training_results = self.logistic_regression.train_model()
